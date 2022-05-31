@@ -1,11 +1,10 @@
-# **Cài đặt Openstack All-in-one bằng Kolla Ansible**
+# **Viettel Digital Talent - Practice 3: Dockerizing an thre-tier web app**
 ## **Table of Contents**
 
 [I. Overview](#overview)   
 
        
--
- [II. Step-by-step](#steps)
+[II. Step-by-step](#steps)
    - [1. Set up virtual environment](#venv)            
    - [2. Install dependencies](#dependencies)    
 - [References](#refs)             
