@@ -3,11 +3,15 @@ import os
 
 from flask import Flask, Response, request
 from flask_mongoengine import MongoEngine
+from flask_restful import Api
 
 from database.db import initialize_db
 from database.models import Student
+from api.routes import initialize_routes
 
 app = Flask(__name__)
+api = Api(app)
+
 app.config['MONGODB_SETTINGS'] = {
     'host': os.environ['MONGODB_HOST'],
     'username': os.environ['MONGODB_USERNAME'],
@@ -26,19 +30,8 @@ app.config['MONGODB_SETTINGS'] = {
 #     }
 
 initialize_db(app)
+initialize_routes(api)
 
-@app.route("/api")
-def index():
-    Student.objects().delete()
-    Student(
-        sid = 1,
-        full_name="Nguyen Duc Duong", 
-        year_of_birth= 2000,
-        university = "UET",
-        major = "Computer science"
-        ).save()
-    students = Student.objects().to_json()
-    return Response(students, mimetype="application/json", status=200)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
