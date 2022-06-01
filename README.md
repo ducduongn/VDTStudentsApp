@@ -44,9 +44,13 @@ virtualenv --python C:\Path\To\Python\python.exe venv
 - Firstly, install Flask and the Twilio Python SDK:
 
 ```
-pip install Flask twilio
+pip install Flask gunicorn flask-mongoengine
 ```
 
+-Create requirement.txt file:
+```
+pip freeze > requirements.txt
+```
 ## Tài liệu tham khảo
 <a name='refs'></a >      
 
