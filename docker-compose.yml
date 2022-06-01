@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   client:
+    container_name: app-fe
     build:
         context: ./frontend
         dockerfile: Dockerfile
@@ -15,9 +16,11 @@ services:
 
   mongodb:
     image: mongo:5.0
-    container_name: mongo
+    container_name: mongodb
     restart: unless-stopped
     command: mongod --auth
+    ports:
+        - "27017:27017"
     environment:
         MONGO_INITDB_ROOT_USERNAME: "ducduongn"
         MONGO_INITDB_ROOT_PASSWORD: "password"
@@ -29,6 +32,7 @@ services:
         - backend
 
   api:
+        container_name: app-api
         build: 
             context: ./backend
             dockerfile: Dockerfile
@@ -39,6 +43,9 @@ services:
             MONGODB_HOST: mongodb
             MONGODB_USERNAME: "apiuser"
             MONGODB_PASSWORD: "apipassword"
+            MONGODB_DBNAME : "student-db"
+            MONGODB_AUTH_SOURCE : "student-db"
+            
         volumes:
             - appdata:/var/www/
         depends_on: 

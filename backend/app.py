@@ -12,8 +12,18 @@ app.config['MONGODB_SETTINGS'] = {
     'host': os.environ['MONGODB_HOST'],
     'username': os.environ['MONGODB_USERNAME'],
     'password': os.environ['MONGODB_PASSWORD'],
-    'db': 'webapp'
+    'db': os.environ['MONGODB_DBNAME'],
+    'authentication_source': os.environ['MONGODB_AUTH_SOURCE'],
 }
+
+# app.config['MONGODB_SETTINGS'] = {
+#         'DB': 'student-db',
+#         'USERNAME': 'apiuser',
+#         'PASSWORD': 'apipassword',
+#         'HOST': 'localhost',
+#         'PORT': 27017,
+#         'authentication_source': 'student-db',
+#     }
 
 initialize_db(app)
 
@@ -21,13 +31,14 @@ initialize_db(app)
 def index():
     Student.objects().delete()
     Student(
+        sid = 1,
         full_name="Nguyen Duc Duong", 
         year_of_birth= 2000,
         university = "UET",
         major = "Computer science"
         ).save()
-    Students = Student.objects().to_json()
-    return Response(todos, mimetype="application/json", status=200)
+    students = Student.objects().to_json()
+    return Response(students, mimetype="application/json", status=200)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
