@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   const fetchStudents = async () => {
-    const res = await fetch("http://localhost:3000/api/students")
+    const res = await fetch("http://localhost:80/api/students")
     const data = await res.json()
 
     return data
