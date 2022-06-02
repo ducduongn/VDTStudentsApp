@@ -1,0 +1,70 @@
+version: '3.7'
+services:
+  client:
+    container_name: app-fe
+    build:
+        context: ./frontend
+        dockerfile: Dockerfile-prod
+    tty: true 
+    ports:
+        - "3000:80"
+    volumes:
+        - ./frontend:/app 
+        - /app/node_modules
+    networks:
+        - frontend
+
+  mongodb:
+    image: mongo:5.0
+    container_name: mongodb
+    restart: unless-stopped
+    command: mongod --auth
+    # build:
+    #     context: ./mongo
+    #     dockerfile: Dockerfile
+    ports:
+        - "27017:27017"
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: "ducduongn"
+        MONGO_INITDB_ROOT_PASSWORD: "password"
+        MONGO_INITDB_DATABASE: student-db
+        MONGODB_DATA_DIR: /data/db
+    volumes:
+        - mongodbdata:/data/db
+        - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+        - backend
+
+  api:
+        container_name: app-api
+        build: 
+            context: ./backend
+            dockerfile: Dockerfile
+        command: gunicorn --bind 0.0.0.0:5000 app:app
+        ports:
+            - "5000:5000"
+        environment:
+            MONGODB_HOST: mongodb
+            MONGODB_USERNAME: "apiuser"
+            MONGODB_PASSWORD: "apipassword"
+            MONGODB_DBNAME : "student-db"
+            MONGODB_AUTH_SOURCE : "student-db"
+            
+        volumes:
+            - appdata:/var/www/
+        depends_on: 
+            - mongodb
+        networks:
+            - frontend
+            - backend                    
+
+networks:
+   frontend:
+      driver: bridge
+   backend:
+      driver: bridge
+volumes:
+   mongodbdata:
+      driver: local
+   appdata:
+      driver: local      
