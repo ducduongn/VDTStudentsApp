@@ -12,9 +12,11 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
+#Define the working directory
 WORKDIR /app
 
 #Add Flask app to working directory
 ADD . /app
 
+# Start the Gunicorn server listening on port 5000
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

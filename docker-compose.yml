@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  client:
-    container_name: app-fe-dev
+  web-server:
+    container_name: web-server-dev
     build:
         context: ./frontend
         dockerfile: Dockerfile
@@ -40,7 +40,6 @@ services:
         build: 
             context: ./backend
             dockerfile: Dockerfile
-        command: gunicorn --bind 0.0.0.0:5000 app:app
         ports:
             - "5000:5000"
         environment:
