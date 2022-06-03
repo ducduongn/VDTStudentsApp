@@ -731,7 +731,7 @@ docker-compose up -d
 
 
 <div align="center">
-  <img width="1000" src="img/app-dev.png" alt="Docker logo">
+  <img width="800" src="img/app-dev.png" alt="Docker logo">
 </div>
 
 <div align="center">
@@ -742,7 +742,7 @@ docker-compose up -d
 - We can see that the Flask API is running on the port 5000:
 
 <div align="center">
-  <img width="1000" src="img/app-api-dev.png" alt="Docker logo">
+  <img width="500" src="img/app-api-dev.png" alt="Docker logo">
 </div>
 
 <div align="center">
@@ -954,7 +954,7 @@ docker-compose -f docker-compose-prod.yml up --build -d
 
 
 <div align="center">
-  <img width="1000" src="img/app-prod.png" alt="Docker logo">
+  <img width="800" src="img/app-prod.png" alt="Docker logo">
 </div>
 
 <div align="center">
@@ -962,7 +962,7 @@ docker-compose -f docker-compose-prod.yml up --build -d
 </div>
 
 <div align="center">
-  <img width="1000" src="img/app-api-prod.png" alt="Docker logo">
+  <img width="500" src="img/app-api-prod.png" alt="Docker logo">
 </div>
 
 <div align="center">
